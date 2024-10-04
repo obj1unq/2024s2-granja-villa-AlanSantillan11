@@ -1,9 +1,45 @@
-import example.pepita
+ import cultivos.*
+ import posiciones.*
+ import hector.*
+ import wollok.game.*
 
-describe "group of tests for pepita" {
+describe "test hector" {
+    method initializer(){
+        game.title("La granja de Héctor")
+        game.height(10)
+        game.width(10)
+}
+    
+    
+    test "hector" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+        const trigo1 = new Trigo()
+
+    hector.sembrar(trigo1)
+    assert.that(hector.hayCultivoAca())
+    hector.regar(trigo1)
+    hector.regar(trigo1)
+    hector.cosechar(hector.cultivoAca())
+    
+
+    assert.throwsException({hector.regar(trigo1)})
+    }
+}
+
+describe "Hector cosecha y vende"{
+  method initializer(){
+        game.title("La granja de Héctor")
+        game.height(10)
+        game.width(10)
+
   }
-
+  test "Hector cosecha, riega y vende el trigo" {
+      const maiz1 = new Maiz() 
+      hector.sembrar(maiz1)
+      hector.regar(hector.cultivoAca())
+      hector.cosechar(hector.cultivoAca())
+      hector.vender()
+      assert.equals(150, hector.oro())
+      assert.equals([],hector.cultivos())
+  }
 }
